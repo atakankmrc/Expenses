@@ -11,6 +11,8 @@
 		7D099E3428EECCBD00131E31 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D099E3328EECCBD00131E31 /* ContentView.swift */; };
 		7D099E3628EECCBE00131E31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D099E3528EECCBE00131E31 /* Assets.xcassets */; };
 		7D099E3928EECCBE00131E31 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D099E3828EECCBE00131E31 /* Preview Assets.xcassets */; };
+		7D099E4128EECE3600131E31 /* Expenses.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D099E3F28EECE3600131E31 /* Expenses.xcdatamodeld */; };
+		7D099E4328EED2BE00131E31 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D099E4228EED2BE00131E31 /* PersistenceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		7D099E3328EECCBD00131E31 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7D099E3528EECCBE00131E31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D099E3828EECCBE00131E31 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7D099E4028EECE3600131E31 /* Expenses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Expenses.xcdatamodel; sourceTree = "<group>"; };
+		7D099E4228EED2BE00131E31 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +57,9 @@
 			children = (
 				7D099E3128EECCBD00131E31 /* ExpensesApp.swift */,
 				7D099E3328EECCBD00131E31 /* ContentView.swift */,
+				7D099E4228EED2BE00131E31 /* PersistenceController.swift */,
 				7D099E3528EECCBE00131E31 /* Assets.xcassets */,
+				7D099E3F28EECE3600131E31 /* Expenses.xcdatamodeld */,
 				7D099E3728EECCBE00131E31 /* Preview Content */,
 			);
 			path = Expenses;
@@ -138,7 +144,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D099E3428EECCBD00131E31 /* ContentView.swift in Sources */,
+				7D099E4128EECE3600131E31 /* Expenses.xcdatamodeld in Sources */,
 				7D099E3228EECCBD00131E31 /* ExpensesApp.swift in Sources */,
+				7D099E4328EED2BE00131E31 /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +347,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7D099E3F28EECE3600131E31 /* Expenses.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7D099E4028EECE3600131E31 /* Expenses.xcdatamodel */,
+			);
+			currentVersion = 7D099E4028EECE3600131E31 /* Expenses.xcdatamodel */;
+			path = Expenses.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7D099E2628EECCBD00131E31 /* Project object */;
 }
