@@ -23,7 +23,13 @@ struct ContentView: View {
         NavigationView {
             List{
                 ForEach(tablolar,id: \.self){tablo in
-                    Text("\(tablo.name ?? "Unknown")")
+                    NavigationLink(destination: TabloView(tabloAd: tablo.name!)) {
+                        VStack(alignment: .leading, spacing: 10){
+                            Text("\(tablo.name ?? "Unknown")")
+                            Text("Deneme")
+                                .font(.caption)
+                        }
+                    }
                 }
                 .onDelete(perform: removeItem)
             }
