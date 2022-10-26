@@ -23,10 +23,10 @@ struct ContentView: View {
         NavigationView {
             List{
                 ForEach(tablolar,id: \.self){tablo in
-                    NavigationLink(destination: TabloView(tabloAd: tablo.name!)) {
+                    NavigationLink(destination: TabloView(predicate: tablo.id!)) {
                         VStack(alignment: .leading, spacing: 10){
                             Text("\(tablo.name ?? "Unknown")")
-                            Text("Deneme")
+                            Text("\(tablo.tarih!.formatted(date: .numeric, time: .omitted))")
                                 .font(.caption)
                         }
                     }
@@ -63,7 +63,9 @@ struct ContentView: View {
     
     func addTablo(name: String){
         let tablo = Tablo(context: managedObjContext)
+        tablo.id = UUID().uuidString
         tablo.name = tabloAd
+        tablo.tarih = Date.now
         PersistenceController.shared.save()
     }
 }
