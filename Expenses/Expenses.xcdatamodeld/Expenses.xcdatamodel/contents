@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Gider" representedClassName="Gider" syncable="YES" codeGenerationType="class">
+        <attribute name="deger" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="tabloID" attributeType="String"/>
         <attribute name="tarih" attributeType="Date" defaultDateTimeInterval="687082620" usesScalarValueType="NO"/>

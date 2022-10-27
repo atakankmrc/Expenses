@@ -9,6 +9,10 @@ import SwiftUI
 
 struct TabloView: View {
     
+    @State private var giderAd = ""
+    @State private var giderDeger = 0
+    @State private var presentGiderEkle: Bool = false
+    
     // TODO: Girilen tablonun adı çekilecek
     var tabloAd = "Şimdilik Boş"
     
@@ -29,8 +33,9 @@ struct TabloView: View {
     
     private func addGider() {
         let gider = Gider(context: managedObjContext)
-        gider.name = "GiderDeneme"
+        gider.name = giderAd
         gider.tarih = Date()
+        gider.deger = Int32(giderDeger)
         gider.tabloID = predicate
         PersistenceController.shared.save()
     }
@@ -39,15 +44,15 @@ struct TabloView: View {
         NavigationView {
             List{
                 ForEach(giderler) {gider in
-                    VStack{
                         HStack{
-                            Text("\(gider.name ?? "unknown")")
+                            VStack{
+                                Text("\(gider.name ?? "unknown")")
+                                Text("\(gider.tarih?.formatted(.dateTime) ?? Date().formatted(.dateTime))")
+                                    .font(.caption)
+                            }
                             Spacer()
-                            Text("\(gider.tarih?.formatted(.dateTime) ?? Date().formatted(.dateTime))")
+                            Text("$\(String(gider.deger))")
                         }
-                        Text("\(gider.tabloID ?? "Unknown")")
-                            .font(.caption)
-                    }
                 }
                 .onDelete(perform: removeItem)
             }
@@ -56,8 +61,27 @@ struct TabloView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: Button("Ekle"){
             // TODO: Gider eklemek için açılacak olan sheet eklenecek
-            addGider()
+            presentGiderEkle.toggle()
         })
+        
+        .sheet(isPresented: $presentGiderEkle) {
+            Form{
+                Section(header: Text("İsim")) {
+                    TextField("Gider İsmi", text: $giderAd)
+                }
+
+                Section(header: Text("Değer")) {
+                    TextField("Değer", value: $giderDeger, format: .number)
+                }
+                
+                Button("Kaydet"){
+                    addGider()
+                    giderAd = ""
+                    giderDeger = 0
+                    presentGiderEkle.toggle()
+                }
+            }
+        }
     }
     
     func removeItem(at offsets: IndexSet) {

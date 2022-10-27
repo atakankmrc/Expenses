@@ -33,7 +33,6 @@ struct ContentView: View {
                 }
                 .onDelete(perform: removeItem)
             }
-            
             .navigationTitle("Tablolar")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button("Ekle"){
