@@ -13,6 +13,8 @@ struct TabloView: View {
     @State private var giderDeger = 0
     @State private var presentGiderEkle: Bool = false
     
+    @State private var giderToplam = 0
+    
     // TODO: Girilen tablonun adı çekilecek
     var tabloAd = "Şimdilik Boş"
     
@@ -31,6 +33,13 @@ struct TabloView: View {
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var giders: FetchedResults<Gider>
     
+    private func toplamGider() {
+        giderToplam = 0
+        giderler.forEach { gider in
+            giderToplam += Int(gider.deger)
+        }
+    }
+    
     private func addGider() {
         let gider = Gider(context: managedObjContext)
         gider.name = giderAd
@@ -42,19 +51,24 @@ struct TabloView: View {
     
     var body: some View {
         NavigationView {
-            List{
-                ForEach(giderler) {gider in
-                        HStack{
-                            VStack{
-                                Text("\(gider.name ?? "unknown")")
-                                Text("\(gider.tarih?.formatted(.dateTime) ?? Date().formatted(.dateTime))")
-                                    .font(.caption)
+            VStack{
+                Text("$ \(giderToplam)")
+                    .padding(.top, 20)
+                List{
+                    ForEach(giderler) {gider in
+                            HStack(){
+                                VStack(alignment: .leading){
+                                    Text("\(gider.name ?? "unknown")")
+                                        .padding(.bottom, 10)
+                                    Text("\(gider.tarih?.formatted(.dateTime) ?? Date().formatted(.dateTime))")
+                                        .font(.caption)
+                                }
+                                Spacer()
+                                Text("$ \(String(gider.deger.formatted(.number)))")
                             }
-                            Spacer()
-                            Text("$\(String(gider.deger))")
-                        }
+                    }
+                    .onDelete(perform: removeItem)
                 }
-                .onDelete(perform: removeItem)
             }
         }
         .navigationTitle("\(tabloAd)")
@@ -63,7 +77,9 @@ struct TabloView: View {
             // TODO: Gider eklemek için açılacak olan sheet eklenecek
             presentGiderEkle.toggle()
         })
-        
+        .onAppear {
+            toplamGider()
+        }
         .sheet(isPresented: $presentGiderEkle) {
             Form{
                 Section(header: Text("İsim")) {
@@ -78,6 +94,7 @@ struct TabloView: View {
                     addGider()
                     giderAd = ""
                     giderDeger = 0
+                    toplamGider()
                     presentGiderEkle.toggle()
                 }
             }
@@ -85,6 +102,7 @@ struct TabloView: View {
     }
     
     func removeItem(at offsets: IndexSet) {
+        toplamGider()
         for index in offsets {
             let item = giderler[index]
             PersistenceController.shared.delete(item)
