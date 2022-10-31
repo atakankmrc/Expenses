@@ -52,6 +52,7 @@ struct TabloView: View {
     var body: some View {
         NavigationView {
             VStack{
+                // TODO: Gider silindiğinde yenileme yapılmıyor çözüm bulunacak.
                 Text("$ \(giderToplam)")
                     .padding(.top, 20)
                 List{
@@ -98,6 +99,7 @@ struct TabloView: View {
                     presentGiderEkle.toggle()
                 }
             }
+            .presentationDetents([.fraction(0.5)])
         }
     }
     
