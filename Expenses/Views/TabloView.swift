@@ -20,14 +20,14 @@ struct TabloView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     
-    var predicate = ""
+    var Tablopredicate = ""
     var giderRequest : FetchRequest<Gider>
     var giderler : FetchedResults<Gider>{giderRequest.wrappedValue}
     
-    init(predicate:String){
-            self.predicate = predicate
+    init(Tablopredicate:String){
+        self.Tablopredicate = Tablopredicate
             self.giderRequest = FetchRequest(entity: Gider.entity(), sortDescriptors: [], predicate:
-                NSPredicate(format: "%K == %@", #keyPath(Gider.tabloID),predicate))
+                NSPredicate(format: "%K == %@", #keyPath(Gider.tabloID),Tablopredicate))
 
         }
     
@@ -45,16 +45,13 @@ struct TabloView: View {
         gider.name = giderAd
         gider.tarih = Date()
         gider.deger = Int32(giderDeger)
-        gider.tabloID = predicate
+        gider.tabloID = Tablopredicate
         PersistenceController.shared.save()
     }
     
     var body: some View {
         NavigationView {
             VStack{
-                // TODO: Gider silindiğinde yenileme yapılmıyor çözüm bulunacak.
-                Text("$ \(giderToplam)")
-                    .padding(.top, 20)
                 List{
                     ForEach(giderler) {gider in
                             HStack(){
@@ -70,12 +67,13 @@ struct TabloView: View {
                     }
                     .onDelete(perform: removeItem)
                 }
+                Text("$ \(giderToplam)")
+                    .padding(.top, 20)
             }
         }
         .navigationTitle("\(tabloAd)")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: Button("Ekle"){
-            // TODO: Gider eklemek için açılacak olan sheet eklenecek
             presentGiderEkle.toggle()
         })
         .onAppear {
@@ -104,16 +102,10 @@ struct TabloView: View {
     }
     
     func removeItem(at offsets: IndexSet) {
-        toplamGider()
         for index in offsets {
             let item = giderler[index]
             PersistenceController.shared.delete(item)
         }
-    }
-}
-
-struct TabloView_Previews: PreviewProvider {
-    static var previews: some View {
-        TabloView(predicate: "lh3123j12")
+        toplamGider()
     }
 }

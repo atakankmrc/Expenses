@@ -23,11 +23,18 @@ struct ContentView: View {
         NavigationView {
             List{
                 ForEach(tablolar,id: \.self){tablo in
-                    NavigationLink(destination: TabloView(predicate: tablo.id!)) {
+                    NavigationLink(destination: TabloView(Tablopredicate: tablo.id!)) {
                         VStack(alignment: .leading, spacing: 10){
                             Text("\(tablo.name ?? "Unknown")")
-                            Text("\(tablo.tarih!.formatted(date: .numeric, time: .omitted))")
+                            Text("\(tablo.tarih!.formatted(date: .numeric, time: .standard))")
                                 .font(.caption)
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button("Fav\(String(tablo.isFavorite))") {
+                                tablo.isFavorite.toggle()
+                                PersistenceController.shared.save()
+                            }
+                            .tint(.orange)
                         }
                     }
                 }
@@ -64,7 +71,7 @@ struct ContentView: View {
         let tablo = Tablo(context: managedObjContext)
         tablo.id = UUID().uuidString
         tablo.name = tabloAd
-        tablo.tarih = Date.now
+        tablo.tarih = Date()
         PersistenceController.shared.save()
     }
 }

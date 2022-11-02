@@ -8,6 +8,7 @@
     </entity>
     <entity name="Tablo" representedClassName="Tablo" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String"/>
+        <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="tarih" attributeType="Date" defaultDateTimeInterval="687082680" usesScalarValueType="NO"/>
     </entity>
