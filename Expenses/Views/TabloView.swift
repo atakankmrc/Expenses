@@ -12,7 +12,6 @@ struct TabloView: View {
     @State private var giderAd = ""
     @State private var giderDeger = 0
     @State private var presentGiderEkle: Bool = false
-    
     @State private var giderToplam = 0
     
     // TODO: Girilen tablonun adı çekilecek
@@ -92,9 +91,10 @@ struct TabloView: View {
                 Button("Kaydet"){
                     addGider()
                     giderAd = ""
-                    giderDeger = 0
                     toplamGider()
                     presentGiderEkle.toggle()
+                    giderDeger = 0
+                    
                 }
             }
             .presentationDetents([.fraction(0.5)])

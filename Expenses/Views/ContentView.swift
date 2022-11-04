@@ -11,13 +11,11 @@ struct ContentView: View {
     
     // MARK: Enviromental Variables
     @Environment(\.managedObjectContext) var managedObjContext
-    
     @FetchRequest(entity: Tablo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Tablo.name, ascending: true)]) var tablolar: FetchedResults<Tablo>
     
     // MARK: Variables
     @State private var presentAlert = false
     @State private var tabloAd = ""
-    
     
     var body: some View {
         NavigationView {
@@ -30,7 +28,7 @@ struct ContentView: View {
                                 .font(.caption)
                         }
                         .swipeActions(edge: .leading) {
-                            Button("Fav\(String(tablo.isFavorite))") {
+                            Button("\(String(tablo.isFavorite))") {
                                 tablo.isFavorite.toggle()
                                 PersistenceController.shared.save()
                             }
@@ -55,11 +53,10 @@ struct ContentView: View {
                 Button("Cancel", role: .cancel, action: {})
             })
             
-            
         }
-
     }
     
+    // MARK: Veritabanından seçilen tabloyu siler.
     func removeItem(at offsets: IndexSet) {
         for index in offsets {
             let item = tablolar[index]
@@ -67,6 +64,7 @@ struct ContentView: View {
         }
     }
     
+    // MARK: Veritabanına yeni tablo ekler.
     func addTablo(name: String){
         let tablo = Tablo(context: managedObjContext)
         tablo.id = UUID().uuidString
@@ -74,6 +72,7 @@ struct ContentView: View {
         tablo.tarih = Date()
         PersistenceController.shared.save()
     }
+    
 }
 
 
